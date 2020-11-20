@@ -1,6 +1,5 @@
 package main
 
-
 import (
 	"os"
 	"bufio"
@@ -8,6 +7,7 @@ import (
 	"strings"
 	"math/big"
 )
+
 
 func main() {
 	publicModulusMap := make(map[string]string)

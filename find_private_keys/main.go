@@ -35,10 +35,15 @@ func main() {
 	gcd := big.NewInt(1)
 	for person1 := range publicModulusMap {
 		var num, _ = new(big.Int).SetString(publicModulusMap[person1], 10)
-		
+
+		flag := false
+
 		for person2 := range(publicModulusMap) {
 			go func(person1, person2 string) {
-				if person1 != person2 {
+				if person1 == person2 {
+					flag = true
+				}
+				if person1 != person2 && flag {
 					var num2, _ = new(big.Int).SetString(publicModulusMap[person2], 10)
 					
 					gcd.GCD(nil, nil, num, num2)

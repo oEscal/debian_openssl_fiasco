@@ -1,4 +1,4 @@
-package main
+package find_private_keys
 
 import (
 	"fmt"

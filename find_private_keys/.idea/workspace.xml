@@ -20,11 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e1ad65f7-6ad3-4b4b-98bd-4fd46c244e6a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/private_key.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/results.txt" beforeDir="false" afterPath="$PROJECT_DIR$/factors.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/private_key.go" beforeDir="false" afterPath="$PROJECT_DIR$/private_key.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,9 +51,12 @@
     <property name="DefaultGoTemplateProperty" value="Go File" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
+    <property name="configurable.Module.GOPATH.is.expanded" value="false" />
+    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/main.go" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.general" />
   </component>
   <component name="RunManager">
     <configuration name="main" type="GoApplicationRunConfiguration" factoryName="Go Application">
@@ -65,7 +67,7 @@
       <filePath value="$PROJECT_DIR$/../find_private_keys|$PROJECT_DIR$/main.go|$PROJECT_DIR$/main.go" />
       <package value="$PROJECT_DIR$" />
       <directory value="$PROJECT_DIR$" />
-      <output_directory value="$PROJECT_DIR$" />
+      <output_directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
   </component>
@@ -93,20 +95,21 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="418" y="173" width="1084" height="756" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605871321684">
+    <state x="446" y="34" width="1160" height="996" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1605960294217">
       <screen x="0" y="0" width="1920" height="1030" />
     </state>
-    <state x="418" y="173" width="1084" height="756" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1030/1920.0.1920.1080@0.0.1920.1030" timestamp="1605871321684" />
+    <state x="446" y="34" width="1160" height="996" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1030/1920.0.1920.1080@0.0.1920.1030" timestamp="1605960294217" />
     <state x="816" y="302" width="267" height="461" key="EnvironmentVariablesDialog" timestamp="1605871275800">
       <screen x="0" y="0" width="1920" height="1030" />
     </state>
     <state x="816" y="302" width="267" height="461" key="EnvironmentVariablesDialog/0.0.1920.1030/1920.0.1920.1080@0.0.1920.1030" timestamp="1605871275800" />
-    <state x="743" y="285" width="424" height="482" key="FileChooserDialogImpl" timestamp="1605871267592">
+    <state x="743" y="285" width="424" height="482" key="FileChooserDialogImpl" timestamp="1605960253449">
       <screen x="0" y="0" width="1920" height="1030" />
     </state>
-    <state x="743" y="285" width="424" height="482" key="FileChooserDialogImpl/0.0.1920.1030/1920.0.1920.1080@0.0.1920.1030" timestamp="1605871267592" />
+    <state x="743" y="285" width="424" height="482" key="FileChooserDialogImpl/0.0.1920.1030/1920.0.1920.1080@0.0.1920.1030" timestamp="1605960253449" />
     <state width="1878" height="272" key="GridCell.Tab.0.bottom" timestamp="1605871328470">
       <screen x="0" y="0" width="1920" height="1030" />
     </state>
@@ -123,9 +126,9 @@
       <screen x="0" y="0" width="1920" height="1030" />
     </state>
     <state width="1878" height="272" key="GridCell.Tab.0.right/0.0.1920.1030/1920.0.1920.1080@0.0.1920.1030" timestamp="1605871328469" />
-    <state x="456" y="150" key="SettingsEditor" timestamp="1605870722660">
+    <state x="456" y="150" key="SettingsEditor" timestamp="1605959960668">
       <screen x="0" y="0" width="1920" height="1030" />
     </state>
-    <state x="456" y="150" key="SettingsEditor/0.0.1920.1030/1920.0.1920.1080@0.0.1920.1030" timestamp="1605870722660" />
+    <state x="456" y="150" key="SettingsEditor/0.0.1920.1030/1920.0.1920.1080@0.0.1920.1030" timestamp="1605959960668" />
   </component>
 </project>

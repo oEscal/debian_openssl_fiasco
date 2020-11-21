@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"bufio"
 	"log"
@@ -81,23 +82,23 @@ func main() {
 		sender := senders[i]
 		receiver := receivers[i]
 
-		receiverInfo, ok := privateKeysMap[receiver]
-		if ok {
+		receiverInfo := privateKeysMap[receiver]
+		if receiverInfo[0] != "1" {
 			pReceiver, _ := new(big.Int).SetString(receiverInfo[0], 10)
 			qReceiver, _ := new(big.Int).SetString(receiverInfo[1], 10)
 			mReceiver, _ := new(big.Int).SetString(privateKeysMap[receiver][2], 10)
 			eReceiver, _ := new(big.Int).SetString(receiverInfo[3], 10)
 			
+			fmt.Printf("From %s to %s: ", sender, receiver)
+
 			dReceiver.ModInverse(eReceiver, lcm(qMinus.Sub(qReceiver, bigOne), pMinus.Sub(pReceiver, bigOne)))
 	
 			encryptedMessage, _ := new(big.Int).SetString(encryptedMessages[i], 10)
 			mL := big.NewInt(1)
 			mL.Exp(encryptedMessage, dReceiver, mReceiver)
 
-			senderInfo, ok := privateKeysMap[sender]
-			if !ok {
-				continue
-			}
+			senderInfo := privateKeysMap[sender]
+			
 			mSender, _ := new(big.Int).SetString(senderInfo[2], 10)
 			eSender, _ := new(big.Int).SetString(senderInfo[3], 10)
 			message := big.NewInt(1)
@@ -109,7 +110,7 @@ func main() {
 				}
 				print(string(messageBytes[mi]))
 			} 
-			println()
+			println("\n")
 		}
 	}
 }

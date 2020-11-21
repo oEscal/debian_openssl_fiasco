@@ -2,10 +2,7 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"bufio"
-	"log"
-	"strings"
+	"time"
 	"math/big"
 )
 
@@ -18,28 +15,13 @@ func main() {
 	publicModulusMap := make(map[string][]string)
 
 	// read file
-	file, err := os.Open("rsa_public_info.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
+	readPublicInfo("rsa_public_info.txt", publicModulusMap)
+	
 
-	scanner := bufio.NewScanner(file)
-
-	for scanner.Scan() {
-		line := strings.Split(scanner.Text(), "\t")
-		publicModulusMap[line[0]] = make([]string, 2)
-		publicModulusMap[line[0]][0] = line[1]
-		publicModulusMap[line[0]][1] = line[2]
-	}
-
-	if err := scanner.Err(); err != nil {
-		log.Fatal(err)
-	}
-
+	init := time.Now()
 
 	bigOne := big.NewInt(1)
-	foundPeople := make(map[string]void)
+	foundPeople := make(map[string][]string)
 	for person1 := range publicModulusMap {
 		publicInfoPerson1 := publicModulusMap[person1]
 		var privateKeyPerson1, _ = new(big.Int).SetString(publicInfoPerson1[0], 10)
@@ -58,13 +40,10 @@ func main() {
 					q.GCD(nil, nil, privateKeyPerson1, privateKeyPerson2)
 					if q.Cmp(bigOne) != 0 {
 						// person, q, p, m, public exponent
-						fmt.Printf("%s\t%s\t%s\t%s\t%s\n", 
-							person1, q.Text(10), p.Quo(privateKeyPerson1, q).Text(10), publicInfoPerson1[0], publicInfoPerson1[1])
-						fmt.Printf("%s\t%s\t%s\t%s\t%s\n", 
-							person2, q.Text(10), p.Quo(privateKeyPerson2, q).Text(10), publicInfoPerson2[0], publicInfoPerson2[1])
-
-						foundPeople[person1] = dummyVoid
-						foundPeople[person2] = dummyVoid
+						foundPeople[person1] = []string{
+							q.Text(10), p.Quo(privateKeyPerson1, q).Text(10), publicInfoPerson1[0], publicInfoPerson1[1]}
+						foundPeople[person2] = []string{
+							q.Text(10), p.Quo(privateKeyPerson2, q).Text(10), publicInfoPerson2[0], publicInfoPerson2[1]}
 					} 
 				} (person1, person2)
 			}
@@ -75,10 +54,9 @@ func main() {
 		}
 	}
 
-	// save the people we could not find
-	for person := range publicModulusMap {
-		if _, ok := foundPeople[person]; !ok {
-			fmt.Printf("%s\t%d\t%d\t%s\t%s\n", person, 1, 1, publicModulusMap[person][0], publicModulusMap[person][1])
-		}
-	}
+	fmt.Printf("Done in %f s!\n", time.Now().Sub(init).Seconds())
+
+
+	// save the results 
+	saveResults("results2.txt", publicModulusMap, foundPeople)	
 }

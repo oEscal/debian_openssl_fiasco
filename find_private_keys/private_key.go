@@ -1,4 +1,4 @@
-package find_private_keys
+package main
 
 import (
 	"fmt"
@@ -13,6 +13,7 @@ import (
 func main() {
 
 	publicModulusMap := make(map[string]string)
+	publicExponentMap := make(map[string]string)
 	factorsMap := make(map[string]string)
 
 	// read files
@@ -27,6 +28,7 @@ func main() {
 	for scanner.Scan() {
 		line := strings.Split(scanner.Text(), "\t")
 		publicModulusMap[line[0]] = line[1]
+		publicExponentMap[line[0]] = line[2]
 	}
 
 	if err := scanner.Err(); err != nil {
@@ -61,7 +63,8 @@ func main() {
 		privateKey, _ := new(big.Int).SetString(publicModulusMap[name], 10)
 
 		if p.Cmp(bigOne) != 0 {
-			fmt.Printf("%s\t%s\t%s\n", name, p.Text(10), q.Quo(privateKey, p).Text(10))
+			fmt.Printf("%s\t%s\t%s\t%s\t%s\n", 
+				name, p.Text(10), q.Quo(privateKey, p).Text(10), publicModulusMap[name], publicExponentMap[name])
 		}
 	}
 }

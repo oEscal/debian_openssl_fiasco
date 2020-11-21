@@ -1,4 +1,4 @@
-package find_private_keys
+package main
 
 import (
 	"os"

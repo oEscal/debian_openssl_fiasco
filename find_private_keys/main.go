@@ -11,6 +11,7 @@ import (
 
 
 type void struct{}
+var dummyVoid void
 
 
 func main() {
@@ -38,6 +39,7 @@ func main() {
 
 
 	bigOne := big.NewInt(1)
+	foundPeople := make(map[string]void)
 	for person1 := range publicModulusMap {
 		publicInfoPerson1 := publicModulusMap[person1]
 		var privateKeyPerson1, _ = new(big.Int).SetString(publicInfoPerson1[0], 10)
@@ -60,6 +62,9 @@ func main() {
 							person1, q.Text(10), p.Quo(privateKeyPerson1, q).Text(10), publicInfoPerson1[0], publicInfoPerson1[1])
 						fmt.Printf("%s\t%s\t%s\t%s\t%s\n", 
 							person2, q.Text(10), p.Quo(privateKeyPerson2, q).Text(10), publicInfoPerson2[0], publicInfoPerson2[1])
+
+						foundPeople[person1] = dummyVoid
+						foundPeople[person2] = dummyVoid
 					} 
 				} (person1, person2)
 			}
@@ -67,6 +72,13 @@ func main() {
 			if person1 == person2 {
 				flag = true
 			}
+		}
+	}
+
+	// save the people we could not find
+	for person := range publicModulusMap {
+		if _, ok := foundPeople[person]; !ok {
+			fmt.Printf("%s\t%d\t%d\t%s\t%s\n", person, 1, 1, publicModulusMap[person][0], publicModulusMap[person][1])
 		}
 	}
 }

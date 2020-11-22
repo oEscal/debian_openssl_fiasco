@@ -1,10 +1,10 @@
 # debian_openssl_fiasco
 
-## Description (by the teacher of Applied Cryptography)
+## Description (by the Applied Cryptography's teacher)
 
 In the first decade of this century, because of a programming blunder related to the use of pseudo-random numbers, the RSA private data of OpenSSL keys did not have enough variety. In particular, it was possible, and indeed it was relatively common, for RSA moduli that were supposed to be distinct to share a common factor.
 
-The file `rsa_public_info.txt` contains the public data needed to encrypt a message to 20000distinct individuals. Each of its lines contains three fields:
+The file `rsa_public_info.txt` contains the public data needed to encrypt a message to 20000 distinct individuals. Each of its lines contains three fields:
 
  - the individual’s name,
  - his/hers RSA 4096-bit modulus, and
@@ -26,7 +26,7 @@ Your first task is to factor as many moduli as possible (hint: use greatest comm
     | ... |  rand  |    0   |   63   |   116  |   104  |   103  |   105  |   110  |   111  |   84   |
     | ... | byte 9 | byte 8 | byte 7 | byte 6 | byte 5 | byte 4 | byte 3 | byte 2 | byte 1 | byte 0 |
 
-    
+
     and so the plain text number will be
        M = 84 + 111×256 + 110×256^2 + ··· = 4572394315047661396 +r×256^9
     

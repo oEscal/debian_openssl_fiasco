@@ -1,4 +1,4 @@
-# debian_openssl_fiasco
+# Debian openssl fiasco
 
 ## Description (by the Applied Cryptography's teacher)
 

@@ -20,26 +20,21 @@ func calculateMessageL(mL, initialMessage, dSender, mSender, mReceiver *big.Int,
 	if message.Cmp(mSender) > 0 {
 		calculateMessageL(mL, initialMessage, dSender, mSender, mReceiver, lenOriginalMessage)
 	}
-	println(message.Cmp(mSender))
 
 	mL.Exp(message, dSender, mSender)
-	println(mL.Cmp(mReceiver))
-	
+
 	if message.Cmp(mSender) > 0 {
 		calculateMessageL(mL, initialMessage, dSender, mSender, mReceiver, lenOriginalMessage)
 	}
 }
 
-func encrypt(infoMap map[string][]string) {
+func encrypt(infoMap map[string][]string, sender, receiver, messageOriginal string) {
 	rand.Seed(time.Now().UnixNano())
 
 	dSender := big.NewInt(1)
 	bigOne := big.NewInt(1)
 	pMinus := big.NewInt(1)
 	qMinus := big.NewInt(1)
-
-	sender := "\"Brian York\""
-	receiver := "\"Charlie Brown\""
 
 	senderInfo := infoMap[sender]
 	receiverInfo := infoMap[receiver]
@@ -53,7 +48,6 @@ func encrypt(infoMap map[string][]string) {
 	eReceiver, _ := new(big.Int).SetString(receiverInfo[3], 10)
 
 	dSender.ModInverse(eSender, lcm(qMinus.Sub(qSender, bigOne), pMinus.Sub(pSender, bigOne)))
-	messageOriginal := "Ola"
 	messageOriginal += string(byte(0))
 	initialMessage := big.NewInt(0)
 

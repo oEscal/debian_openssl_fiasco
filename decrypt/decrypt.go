@@ -6,7 +6,7 @@ import (
 )
 
 
-func decrypt(senders, receivers, encryptedMessages []string, privateKeysMap map[string][]string) {
+func decrypt(senders, receivers, encryptedMessages []string, infoMap map[string][]string) {
 
 	dReceiver := big.NewInt(1)
 	bigOne := big.NewInt(1)
@@ -16,7 +16,7 @@ func decrypt(senders, receivers, encryptedMessages []string, privateKeysMap map[
 		sender := senders[i]
 		receiver := receivers[i]
 
-		receiverInfo := privateKeysMap[receiver]
+		receiverInfo := infoMap[receiver]
 		if receiverInfo[0] != "1" {
 			pReceiver, _ := new(big.Int).SetString(receiverInfo[0], 10)
 			qReceiver, _ := new(big.Int).SetString(receiverInfo[1], 10)
@@ -31,7 +31,7 @@ func decrypt(senders, receivers, encryptedMessages []string, privateKeysMap map[
 			mL := big.NewInt(1)
 			mL.Exp(encryptedMessage, dReceiver, mReceiver)
 
-			senderInfo := privateKeysMap[sender]
+			senderInfo := infoMap[sender]
 			
 			mSender, _ := new(big.Int).SetString(senderInfo[2], 10)
 			eSender, _ := new(big.Int).SetString(senderInfo[3], 10)

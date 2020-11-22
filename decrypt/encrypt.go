@@ -7,7 +7,7 @@ import (
 )
 
 
-func encrypt(privateKeysMap map[string][]string) {
+func encrypt(infoMap map[string][]string) {
 
 	dSender := big.NewInt(1)
 	bigOne := big.NewInt(1)
@@ -17,8 +17,8 @@ func encrypt(privateKeysMap map[string][]string) {
 	sender := "\"Brian York\""
 	receiver := "\"Charlie Brown\""
 
-	senderInfo := privateKeysMap[sender]
-	receiverInfo := privateKeysMap[receiver]
+	senderInfo := infoMap[sender]
+	receiverInfo := infoMap[receiver]
 
 	pSender, _ := new(big.Int).SetString(senderInfo[0], 10)
 	qSender, _ := new(big.Int).SetString(senderInfo[1], 10)

@@ -29,7 +29,7 @@ func main() {
 	var encryptedMessages []string
 
 	// read file
-	file, err := os.Open("intercepted.txt")
+	file, err := os.Open("my_messages.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -86,7 +86,7 @@ func main() {
 		if receiverInfo[0] != "1" {
 			pReceiver, _ := new(big.Int).SetString(receiverInfo[0], 10)
 			qReceiver, _ := new(big.Int).SetString(receiverInfo[1], 10)
-			mReceiver, _ := new(big.Int).SetString(privateKeysMap[receiver][2], 10)
+			mReceiver, _ := new(big.Int).SetString(receiverInfo[2], 10)
 			eReceiver, _ := new(big.Int).SetString(receiverInfo[3], 10)
 			
 			fmt.Printf("From %s to %s: ", sender, receiver)

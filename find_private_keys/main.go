@@ -4,11 +4,14 @@ import (
 	"fmt"
 	"flag"
 	"time"
+	"sync"
 	"math/big"
 )
 
 
 func crackPublicInfo(privateInfoMap, publicInfoMap map[string][]string) {
+	var semaphore sync.RWMutex
+
 	bigOne := big.NewInt(1)
 	for person1 := range publicInfoMap {
 		publicInfoPerson1 := publicInfoMap[person1]
@@ -27,6 +30,9 @@ func crackPublicInfo(privateInfoMap, publicInfoMap map[string][]string) {
 					
 					q.GCD(nil, nil, privateKeyPerson1, privateKeyPerson2)
 					if q.Cmp(bigOne) != 0 {
+						semaphore.Lock()
+						defer semaphore.Unlock()
+
 						// person, q, p, m, public exponent
 						privateInfoMap[person1] = []string{
 							q.Text(10), p.Quo(privateKeyPerson1, q).Text(10), publicInfoPerson1[0], publicInfoPerson1[1]}

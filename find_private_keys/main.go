@@ -9,44 +9,52 @@ import (
 )
 
 
+var bigOne = big.NewInt(1)
+
+
+func gcdBetweenTwoPersons(privateInfoMap, publicInfoMap map[string][]string, person1, person2 string, 
+									wg *sync.WaitGroup, semaphore *sync.Mutex) {
+	publicInfoPerson1 := publicInfoMap[person1]
+	var privateKeyPerson1, _ = new(big.Int).SetString(publicInfoPerson1[0], 10)
+	
+	publicInfoPerson2 := publicInfoMap[person2]
+	var privateKeyPerson2, _ = new(big.Int).SetString(publicInfoPerson2[0], 10)
+
+	q := big.NewInt(1)
+	p := big.NewInt(1)
+	
+	q.GCD(nil, nil, privateKeyPerson1, privateKeyPerson2)
+	if q.Cmp(bigOne) != 0 {
+		semaphore.Lock()
+
+		// person, q, p, m, public exponent
+		privateInfoMap[person1] = []string{
+			q.Text(10), p.Quo(privateKeyPerson1, q).Text(10), publicInfoPerson1[0], publicInfoPerson1[1]}
+		privateInfoMap[person2] = []string{
+			q.Text(10), p.Quo(privateKeyPerson2, q).Text(10), publicInfoPerson2[0], publicInfoPerson2[1]}
+
+		semaphore.Unlock()
+	} 
+	wg.Done()
+}
+
+
 func crackPublicInfo(privateInfoMap, publicInfoMap map[string][]string) {
-	var semaphore sync.RWMutex
+	var wg sync.WaitGroup
+	var semaphore sync.Mutex
 
-	bigOne := big.NewInt(1)
-	for person1 := range publicInfoMap {
-		publicInfoPerson1 := publicInfoMap[person1]
-		var privateKeyPerson1, _ = new(big.Int).SetString(publicInfoPerson1[0], 10)
+	var people []string
+	for person := range publicInfoMap {
+		people = append(people, person)
+	}
 
-		flag := false
-
-		for person2 := range(publicInfoMap) {
-			if flag {
-				go func(person1, person2 string) {
-					q := big.NewInt(1)
-					p := big.NewInt(1)
-					
-					publicInfoPerson2 := publicInfoMap[person2]
-					var privateKeyPerson2, _ = new(big.Int).SetString(publicInfoPerson2[0], 10)
-					
-					q.GCD(nil, nil, privateKeyPerson1, privateKeyPerson2)
-					if q.Cmp(bigOne) != 0 {
-						semaphore.Lock()
-						defer semaphore.Unlock()
-
-						// person, q, p, m, public exponent
-						privateInfoMap[person1] = []string{
-							q.Text(10), p.Quo(privateKeyPerson1, q).Text(10), publicInfoPerson1[0], publicInfoPerson1[1]}
-						privateInfoMap[person2] = []string{
-							q.Text(10), p.Quo(privateKeyPerson2, q).Text(10), publicInfoPerson2[0], publicInfoPerson2[1]}
-					} 
-				} (person1, person2)
-			}
-
-			if person1 == person2 {
-				flag = true
-			}
+	for i1 := range people[:len(people) - 1] {
+		for i2 := i1 + 1; i2 < len(people); i2++ {
+			wg.Add(1)
+			go gcdBetweenTwoPersons(privateInfoMap, publicInfoMap, people[i1], people[i2], &wg, &semaphore)
 		}
 	}
+	wg.Wait()
 }
 
 
@@ -67,7 +75,6 @@ func main() {
 
 	// read file
 	readPublicInfo(publicInfoFileName, publicInfoMap)
-	
 
 	// crack the public info
 	init := time.Now()

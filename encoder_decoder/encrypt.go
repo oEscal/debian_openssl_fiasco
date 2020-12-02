@@ -60,7 +60,8 @@ func encrypt(infoMap map[string][]string, sender, receiver, messageOriginal stri
 	mL := big.NewInt(1)
 	calculateMessageL(mL, initialMessage, dSender, mSender, mReceiver, int64(len(messageOriginal)))
 
-	encryptedMessage := mL.Exp(mL, eReceiver, mReceiver)
+	encryptedMessage := big.NewInt(1) 
+	encryptedMessage.Exp(mL, eReceiver, mReceiver)
 
 	fmt.Printf("%s\t%s\t%s\n", sender, receiver, encryptedMessage.Text(10))
 }
